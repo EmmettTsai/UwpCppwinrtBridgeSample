@@ -4,7 +4,8 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities"
-  IgnorableNamespaces="uap rescap">
+  xmlns:desktop="http://schemas.microsoft.com/appx/manifest/desktop/windows10"
+  IgnorableNamespaces="uap rescap desktop">
 
   <Identity
     Name="UwpCppwinrtBridgeSample"
@@ -39,6 +40,17 @@
         <uap:DefaultTile Wide310x150Logo="Images\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Images\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="CommunicationService" />
+        </uap:Extension>
+        <desktop:Extension Category="windows.fullTrustProcess" Executable="ConsoleApplication_cppwinrt/ConsoleApplication_cppwinrt.exe">
+          <desktop:FullTrustProcess>
+            <desktop:ParameterGroup GroupId="Case1GroupId" Parameters="/Case1Group"/>
+            <desktop:ParameterGroup GroupId="Case2GroupId" Parameters="/Case2Group"/>
+          </desktop:FullTrustProcess>
+        </desktop:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
