@@ -7,12 +7,12 @@
   IgnorableNamespaces="uap rescap">
 
   <Identity
-    Name="9a84b301-1650-4e71-adcd-937a5214517c"
+    Name="UwpCppwinrtBridgeSample"
     Publisher="CN=emmett.tsai"
     Version="1.0.0.0" />
 
   <Properties>
-    <DisplayName>Packaging</DisplayName>
+    <DisplayName>Uwp Cppwinrt Bridge Sample</DisplayName>
     <PublisherDisplayName>emmett.tsai</PublisherDisplayName>
     <Logo>Images\StoreLogo.png</Logo>
   </Properties>
@@ -31,8 +31,8 @@
       Executable="$targetnametoken$.exe"
       EntryPoint="$targetentrypoint$">
       <uap:VisualElements
-        DisplayName="Packaging"
-        Description="Packaging"
+        DisplayName="Uwp Cppwinrt Bridge Sample"
+        Description="Uwp Cppwinrt Bridge Sample"
         BackgroundColor="transparent"
         Square150x150Logo="Images\Square150x150Logo.png"
         Square44x44Logo="Images\Square44x44Logo.png">
