@@ -169,11 +169,11 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Windows">
-      <HintPath>$(MSBuildProgramFiles32)\Windows Kits\10\UnionMetadata\Facade\Windows.WinMD</HintPath>
+      <HintPath>$(WindowsSDK_UnionMetadataPath)\Facade\Windows.WinMD</HintPath>
       <IsWinMDFile>true</IsWinMDFile>
     </Reference>
     <Reference Include="Windows.ApplicationModel.FullTrustAppContract">
-      <HintPath>$(MSBuildProgramFiles32)\Windows Kits\10\References\Windows.ApplicationModel.FullTrustAppContract\1.0.0.0\Windows.ApplicationModel.FullTrustAppContract.winmd</HintPath>
+      <HintPath>$(WindowsSDK_MetadataPathVersioned)\Windows.ApplicationModel.FullTrustAppContract\1.0.0.0\Windows.ApplicationModel.FullTrustAppContract.winmd</HintPath>
       <IsWinMDFile>true</IsWinMDFile>
     </Reference>
   </ItemGroup>
