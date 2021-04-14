@@ -11,5 +11,7 @@
         <Button x:Name="myButtonDefault" Click="ClickHandler">Default</Button>
         <Button x:Name="myButtonCase1" Click="ClickHandler">Case 1</Button>
         <Button x:Name="myButtonCase2" Click="ClickHandler">Case 2</Button>
+        <Button x:Name="myButton3" Click="Button3ClickHandler">Case 2</Button>
+        <TextBlock x:Name="myTextBlock"/>
     </StackPanel>
 </Page>

@@ -9,6 +9,8 @@ namespace winrt::Uwp_cppwinrt::implementation
         MainPage();
 
         void ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void Button3ClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        Windows::Foundation::IAsyncAction SendRequest();
     };
 }
 

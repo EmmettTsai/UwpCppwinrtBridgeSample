@@ -6,12 +6,16 @@
 using namespace winrt;
 using namespace Windows::ApplicationModel;
 using namespace Windows::ApplicationModel::Activation;
+using namespace Windows::ApplicationModel::AppService;
+using namespace Windows::ApplicationModel::Background;
 using namespace Windows::Foundation;
 using namespace Windows::UI::Xaml;
 using namespace Windows::UI::Xaml::Controls;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace Uwp_cppwinrt;
 using namespace Uwp_cppwinrt::implementation;
+
+AppServiceConnection winrt::Uwp_cppwinrt::implementation::App::_Connection{ nullptr };
 
 /// <summary>
 /// Initializes the singleton application object.  This is the first line of authored code
@@ -20,6 +24,9 @@ using namespace Uwp_cppwinrt::implementation;
 App::App()
 {
     InitializeComponent();
+
+    _Connection = nullptr;
+
     Suspending({ this, &App::OnSuspending });
 
 #if defined _DEBUG && !defined DISABLE_XAML_GENERATED_BREAK_ON_UNHANDLED_EXCEPTION
@@ -32,6 +39,14 @@ App::App()
         }
     });
 #endif
+}
+
+winrt::Uwp_cppwinrt::implementation::App::~App()
+{
+    if (m_appServiceDeferralCanceledEventRevoker)
+    {
+        m_appServiceDeferralCanceledEventRevoker.revoke();
+    }
 }
 
 /// <summary>
@@ -116,4 +131,30 @@ void App::OnSuspending([[maybe_unused]] IInspectable const& sender, [[maybe_unus
 void App::OnNavigationFailed(IInspectable const&, NavigationFailedEventArgs const& e)
 {
     throw hresult_error(E_FAIL, hstring(L"Failed to load Page ") + e.SourcePageType().Name);
+}
+
+void App::OnBackgroundActivated(BackgroundActivatedEventArgs const& args)
+{
+    if (args.TaskInstance().TriggerDetails().try_as<AppServiceTriggerDetails>())
+    {
+        appServiceDeferral = args.TaskInstance().GetDeferral();
+        m_appServiceDeferralCanceledEventRevoker = args.TaskInstance().Canceled(auto_revoke, { this, &App::OnTaskCanceled }); // Associate a cancellation handler with the background task.
+
+        AppServiceTriggerDetails details = args.TaskInstance().TriggerDetails().as<AppServiceTriggerDetails>();
+        _Connection = details.AppServiceConnection();
+    }
+}
+
+void App::OnTaskCanceled(IBackgroundTaskInstance const& sender, BackgroundTaskCancellationReason const& reason)
+{
+    if (this->appServiceDeferral != nullptr)
+    {
+        // Complete the service deferral.
+        this->appServiceDeferral.Complete();
+    }
+}
+
+AppServiceConnection App::Connection()
+{
+    return _Connection;
 }
